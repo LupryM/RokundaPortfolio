@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import { Header } from "@/components/header";
 import { Navigation } from "@/components/navigation";
 import { ProjectCard } from "@/components/project-card";
@@ -16,34 +17,49 @@ const PROJECTS = [
     title: "SKIMMING",
     year: "2024",
     tagline: "Educational facility design with nature integration",
-    pages: 6, // <--- CHANGED FROM 3 TO 7 (Matches your folder)
+    pages: 6,
   },
   {
     id: 2,
     title: "FAIR SHARE",
     year: "2024",
     tagline: "Transitional housing project for spatial integration",
-    pages: 4, // <--- CHANGED FROM 3 TO 4 (Matches your folder)
+    pages: 4,
   },
   {
     id: 3,
     title: "NARRATION OF DIFFERENT PERSPECTIVES",
     year: "2025",
     tagline: "Museum intervention at Greenmarket Square",
-    pages: 6, // <--- Update this when you add images for Project 3
+    pages: 6,
   },
   {
     id: 4,
     title: "SANCTUARY IN SAFETY",
     year: "2025",
     tagline: "Transitional housing for women and children",
-    pages: 6, // <--- Update this when you add images for Project 4
+    pages: 6,
   },
 ];
 
-export default function Home() {
+function HomeContent() {
+  const searchParams = useSearchParams();
   const [viewMode, setViewMode] = useState<ViewMode>("list");
   const [activeProjectId, setActiveProjectId] = useState<number | null>(null);
+
+  // === LISTEN FOR URL CHANGES ===
+  useEffect(() => {
+    const projectIdString = searchParams.get("project");
+    if (projectIdString) {
+      const projectId = parseInt(projectIdString);
+      const projectExists = PROJECTS.some((p) => p.id === projectId);
+
+      if (!isNaN(projectId) && projectExists) {
+        setActiveProjectId(projectId);
+        setViewMode("project-detail");
+      }
+    }
+  }, [searchParams]);
 
   // Handle clicking a card
   const handleProjectClick = (id: number) => {
@@ -56,6 +72,8 @@ export default function Home() {
   const handleBackToList = () => {
     setViewMode("list");
     setActiveProjectId(null);
+    // Remove the query param from URL without refreshing so back button works nicely
+    window.history.replaceState(null, "", "/");
   };
 
   // Get active project data
@@ -113,7 +131,7 @@ export default function Home() {
               </button>
             </div>
 
-            {/* The BookFlip Component - Passes the new totalPages count */}
+            {/* The BookFlip Component */}
             <BookFlip
               projectId={activeProject.id}
               projectTitle={activeProject.title}
@@ -131,5 +149,14 @@ export default function Home() {
         </div>
       )}
     </div>
+  );
+}
+
+// Wrap the main content in Suspense for Next.js App Router
+export default function Home() {
+  return (
+    <Suspense fallback={<div className="bg-black min-h-screen"></div>}>
+      <HomeContent />
+    </Suspense>
   );
 }
