@@ -17,7 +17,7 @@ export const ContactSection = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20">
         
         {/* 2. CONTACT DETAILS (Left Column) */}
-        <div className="flex flex-col justify-center space-y-8">
+        <div className="flex flex-col justify-start space-y-6 mt-6">
           <div>
              <h3 className="text-white font-sans font-bold uppercase tracking-widest mb-2 text-sm">Email</h3>
              <a href="mailto:rokundamabila@gmail.com" className="text-2xl text-neutral-300 hover:text-white transition-colors font-[family-name:var(--font-brown-sugar)]">
@@ -38,7 +38,6 @@ export const ContactSection = () => {
                 <a href="https://www.linkedin.com/in/rokunda-m-4b461b219/" target="_blank" className="text-neutral-400 hover:text-white transition-colors text-lg border-b border-neutral-800 pb-1 inline-block w-max">
                   LinkedIn Profile ↗
                 </a>
-                {/* Add other socials here if needed */}
              </div>
           </div>
         </div>

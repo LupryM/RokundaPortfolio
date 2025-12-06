@@ -21,11 +21,6 @@ export default function AboutPage() {
           </Link>
         </div>
 
-        {/* TITLE */}
-        <h1 className="font-[family-name:var(--font-brown-sugar)] text-6xl md:text-8xl text-white mb-12">
-          ABOUT ME
-        </h1>
-
         {/* ABOUT IMAGE CONTAINER */}
         <div className="w-full flex justify-center">
           {/* Make sure to put your file in: public/images/about.webp */}

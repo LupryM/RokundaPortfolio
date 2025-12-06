@@ -79,13 +79,13 @@ export default function Home() {
         {viewMode === "list" && (
           <>
             {/* PROJECTS BANNER */}
-            <div className="h-0.5 md:h-1 bg-white w-full"></div>
+            <div className="h-px bg-white w-full"></div>
             <div className="py-4 md:py-6 flex justify-center bg-black">
               <h2 className="font-[family-name:var(--font-brown-sugar)] text-5xl md:text-7xl text-white tracking-wide uppercase">
                 PROJECTS
               </h2>
             </div>
-            <div className="h-0.5 md:h-1 bg-white w-full mb-16"></div>
+            <div className="h-px bg-white w-full mb-16"></div>
 
             {/* PROJECTS GRID */}
             <div className="px-4 md:px-8 max-w-5xl mx-auto pb-20">
