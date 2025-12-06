@@ -30,7 +30,7 @@ export default function SkillsPage() {
         <div className="w-full flex justify-center">
           {/* Make sure to put your file in: public/images/technical-skills.webp */}
           <img
-            src="/technical.webp"
+            src="/technical.jpg"
             alt="Technical Skills"
             className="w-full max-w-4xl h-auto border border-white/20 shadow-[0_0_30px_rgba(255,255,255,0.1)]"
           />

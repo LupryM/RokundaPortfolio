@@ -89,7 +89,7 @@ export default function Home() {
 
             {/* PROJECTS GRID */}
             <div className="px-4 md:px-8 max-w-5xl mx-auto pb-20">
-              {PROJECTS.map((project) => (
+              {[...PROJECTS].reverse().map((project) => (
                 <ProjectCard
                   key={project.id}
                   project={project}
