@@ -96,7 +96,9 @@ function HomeContent() {
         {viewMode === "list" && (
           <>
             {/* PROJECTS BANNER */}
-            <div className="h-px bg-white w-full"></div>
+            {/* Added mt-6 here to push the line down */}
+            <div className="h-px bg-white w-full mt-5"></div>
+
             <div className="py-4 md:py-6 flex justify-center bg-black">
               <h2 className="font-[family-name:var(--font-brown-sugar)] text-4xl md:text-6xl text-white tracking-wide uppercase">
                 PROJECTS
