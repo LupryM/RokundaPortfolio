@@ -8,7 +8,6 @@ const NAV_ITEMS = [
   { label: "ABOUT", id: "about", href: "/about" },
   { label: "CV", id: "cv", href: "/cv" },
   { label: "PROFICIENCY", id: "skills", href: "/technical-skills" },
-  { label: "INFLUENCES", id: "influences", href: "/influences" },
   { label: "CONTACT", id: "contact", href: "/#contact-section" },
 ] as const;
 
@@ -26,7 +25,8 @@ export const Navigation: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-nowrap justify-center items-center gap-1 md:gap-8 px-1 z-50 relative w-full">
+    // UPDATED: Changed gap-1 to gap-3 for mobile spacing
+    <div className="flex flex-nowrap justify-center items-center gap-3 md:gap-8 px-1 z-50 relative w-full">
       {NAV_ITEMS.map((item) => {
         const isActive = item.id !== "contact" && pathname === item.href;
         const isSkills = item.id === "skills";
@@ -45,7 +45,7 @@ export const Navigation: React.FC = () => {
               rounded-full 
               border-[2px] border-white 
               
-              /* SIZING: INCREASED HEIGHT AND PADDING HERE */
+              /* SIZING */
               h-9 md:h-16
               px-3 md:px-12
               
@@ -55,7 +55,7 @@ export const Navigation: React.FC = () => {
               whitespace-nowrap
               text-center
 
-              /* CONDITIONAL FONT SIZE: INCREASED TEXT SIZES */
+              /* CONDITIONAL FONT SIZE */
               ${isSkills ? "text-[10px] md:text-base" : "text-xs md:text-xl"}
               
               /* ANIMATION */
