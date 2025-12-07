@@ -11,7 +11,6 @@ export default function CVPage() {
       </div>
 
       <div className="flex-grow px-4 md:px-8 max-w-6xl mx-auto py-12 w-full text-center">
-        
         {/* BUTTONS CONTAINER */}
         <div className="mb-12 flex flex-col md:flex-row justify-center items-center gap-4">
           {/* BACK BUTTON */}
@@ -25,7 +24,7 @@ export default function CVPage() {
           {/* DOWNLOAD BUTTON */}
           {/* We use a standard <a> tag here because the 'download' attribute doesn't work with Next.js <Link> */}
           <a
-            href="/cv.pdf" // REPLACE THIS with your actual file name in the public folder
+            href="/cvlight.pdf" // REPLACE THIS with your actual file name in the public folder
             download="Rokunda_Mboyi_CV" // This is the name the file will have when downloaded
             className="text-white px-8 py-3 rounded-full uppercase tracking-widest text-sm font-bold border border-white hover:bg-white hover:text-black transition-colors"
           >
@@ -41,9 +40,9 @@ export default function CVPage() {
         {/* CV IMAGE CONTAINER */}
         <div className="w-full flex justify-center">
           <img
-            src="/cv.webp"
+            src="/cvlight.webp"
             alt="Rokunda Mboyi CV"
-            className="w-full h-auto"
+            className="w-full h-auto filter greyscale invert"
           />
         </div>
       </div>
