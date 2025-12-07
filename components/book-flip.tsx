@@ -2,6 +2,7 @@
 
 import type React from "react";
 import { useState, useRef, useEffect } from "react";
+import Link from "next/link"; // Import Link for the back button
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 interface BookFlipProps {
@@ -10,6 +11,39 @@ interface BookFlipProps {
   projectYear: string;
   totalPages: number;
 }
+
+// 1. REUSABLE BACK BUTTON COMPONENT (INTERNAL)
+const BackButton = () => (
+  <Link
+    href="/"
+    className="
+      group flex items-center justify-center
+      w-10 h-10 md:w-14 md:h-14
+      rounded-full 
+      border border-white/50
+      bg-black text-white
+      transition-all duration-300
+      hover:bg-white hover:text-black hover:border-white hover:scale-105
+      flex-shrink-0 z-50
+    "
+  >
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className="w-4 h-4 md:w-6 md:h-6 stroke-current transition-transform group-hover:-translate-x-1"
+    >
+      <path
+        d="M19 12H5M5 12L12 19M5 12L12 5"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  </Link>
+);
 
 export function BookFlip({
   projectId,
@@ -91,26 +125,39 @@ export function BookFlip({
   ).padStart(2, "0")}.webp`;
 
   return (
-    <div className="bg-black h-screen w-full flex flex-col overflow-hidden">
+    // FIX: Use h-[100dvh] for mobile browsers to prevent address bar issues
+    <div className="bg-black h-[100dvh] w-full flex flex-col overflow-hidden">
+      
       {/* HEADER */}
-
-      <header className="bg-black w-full flex-shrink-0 z-10 pt-3 pb-1">
+      <header className="bg-black w-full flex-shrink-0 z-20 pt-4 pb-2 relative">
         <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 md:px-8">
-          {/* CHANGE HERE: Use pl-[...] to manually shift the text to the right. */}
-          <div className="text-left pl-[120px]">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-[family-name:var(--font-brown-sugar)] text-white uppercase tracking-wide mb-0 leading-none">
-              {projectTitle}
-            </h1>
-            <p className="text-neutral-500 text-xs sm:text-sm font-sans uppercase tracking-widest mt-1">
-              {projectYear}
-            </p>
+          
+          <div className="flex flex-col md:block relative">
+            {/* BACK BUTTON POSITIONS */}
+            {/* Mobile: Just sits in the flow */}
+            <div className="md:absolute md:left-4 md:top-1/2 md:-translate-y-1/2 mb-4 md:mb-0">
+               <BackButton />
+            </div>
+
+            {/* TITLE CONTAINER */}
+            {/* Mobile: No padding. Desktop: Left padding to clear the button */}
+            <div className="text-left pl-0 md:pl-[80px]">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-[family-name:var(--font-brown-sugar)] text-white uppercase tracking-wide mb-0 leading-none line-clamp-2">
+                {projectTitle}
+              </h1>
+              <p className="text-neutral-500 text-xs sm:text-sm font-sans uppercase tracking-widest mt-1">
+                {projectYear}
+              </p>
+            </div>
           </div>
+
         </div>
       </header>
 
       {/* MAIN CONTENT */}
+      {/* FIX: min-h-0 ensures this container shrinks if needed, preventing page scroll */}
       <main className="flex-1 flex flex-col relative min-h-0 w-full">
-        <div className="w-full h-full flex items-start justify-center px-4 sm:px-6 md:px-8 py-2">
+        <div className="w-full h-full flex items-center justify-center px-4 sm:px-6 md:px-8 py-2">
           <div
             className="relative w-full h-full max-w-7xl flex items-center justify-center"
             onTouchStart={handleTouchStart}
@@ -176,10 +223,10 @@ export function BookFlip({
       </main>
 
       {/* FOOTER */}
-      <footer className="bg-black border-t border-white/5 w-full flex-shrink-0 z-10 py-2">
+      <footer className="bg-black border-t border-white/5 w-full flex-shrink-0 z-20 py-4 pb-6 safe-area-bottom">
         <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 md:px-8">
-          {/* Progress bar reverted to white */}
-          <div className="mb-2 w-full">
+          {/* Progress bar */}
+          <div className="mb-4 w-full">
             <div className="w-full h-0.5 bg-neutral-900 rounded-full overflow-hidden">
               <div
                 className="h-full bg-white transition-all duration-300"
@@ -201,20 +248,20 @@ export function BookFlip({
                 </span>
               </div>
 
-              <div className="flex gap-2">
+              <div className="flex gap-4">
                 <button
                   onClick={handlePrevPage}
                   disabled={currentPage === 1 || isFlipping}
-                  className="p-1.5 text-white border border-white/20 rounded hover:bg-white/10 transition-all disabled:opacity-30"
+                  className="w-10 h-10 flex items-center justify-center text-white border border-white/20 rounded-full hover:bg-white hover:text-black transition-all disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-white"
                 >
-                  <ChevronLeft size={16} />
+                  <ChevronLeft size={20} />
                 </button>
                 <button
                   onClick={handleNextPage}
                   disabled={currentPage === totalPages || isFlipping}
-                  className="p-1.5 text-white border border-white/20 rounded hover:bg-white/10 transition-all disabled:opacity-30"
+                  className="w-10 h-10 flex items-center justify-center text-white border border-white/20 rounded-full hover:bg-white hover:text-black transition-all disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-white"
                 >
-                  <ChevronRight size={16} />
+                  <ChevronRight size={20} />
                 </button>
               </div>
             </div>
