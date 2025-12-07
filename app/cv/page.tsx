@@ -10,17 +10,27 @@ export default function CVPage() {
         <Navigation />
       </div>
 
-      {/* CHANGED: max-w-5xl -> max-w-6xl (To match the other page) */}
       <div className="flex-grow px-4 md:px-8 max-w-6xl mx-auto py-12 w-full text-center">
-        {/* BACK BUTTON */}
-        <div className="mb-12 flex justify-center">
+        
+        {/* BUTTONS CONTAINER */}
+        <div className="mb-12 flex flex-col md:flex-row justify-center items-center gap-4">
+          {/* BACK BUTTON */}
           <Link
             href="/"
-            // CHANGED: Removed "border border-white"
             className="text-white px-8 py-3 rounded-full uppercase tracking-widest text-sm font-bold hover:bg-white hover:text-black transition-colors"
           >
             ← Back to Projects
           </Link>
+
+          {/* DOWNLOAD BUTTON */}
+          {/* We use a standard <a> tag here because the 'download' attribute doesn't work with Next.js <Link> */}
+          <a
+            href="/cv.pdf" // REPLACE THIS with your actual file name in the public folder
+            download="Rokunda_Mboyi_CV" // This is the name the file will have when downloaded
+            className="text-white px-8 py-3 rounded-full uppercase tracking-widest text-sm font-bold border border-white hover:bg-white hover:text-black transition-colors"
+          >
+            Download CV ↓
+          </a>
         </div>
 
         {/* TITLE */}
@@ -33,7 +43,6 @@ export default function CVPage() {
           <img
             src="/cv.webp"
             alt="Rokunda Mboyi CV"
-            // CHANGED: Removed "border border-white/20", "shadow-[...]", and "max-w-3xl"
             className="w-full h-auto"
           />
         </div>
