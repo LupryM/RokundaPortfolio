@@ -2,7 +2,6 @@
 
 import type React from "react";
 import { useState, useRef, useEffect } from "react";
-import Link from "next/link";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import HTMLFlipBook from "react-pageflip";
 
@@ -12,39 +11,6 @@ interface BookFlipProps {
   projectYear: string;
   totalPages: number;
 }
-
-// 1. REUSABLE BACK BUTTON COMPONENT (INTERNAL)
-const BackButton = () => (
-  <Link
-    href="/"
-    className="
-      group flex items-center justify-center
-      w-10 h-10 md:w-14 md:h-14
-      rounded-full 
-      border border-white/50
-      bg-black text-white
-      transition-all duration-300
-      hover:bg-white hover:text-black hover:border-white hover:scale-105
-      flex-shrink-0 z-50
-    "
-  >
-    <svg
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      className="w-4 h-4 md:w-6 md:h-6 stroke-current transition-transform group-hover:-translate-x-1"
-    >
-      <path
-        d="M19 12H5M5 12L12 19M5 12L12 5"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  </Link>
-);
 
 export function BookFlip({
   projectId,
@@ -111,22 +77,19 @@ export function BookFlip({
   };
 
   return (
-    // FIX: Use h-[100dvh] for mobile browsers to prevent address bar issues
     <div className="bg-black h-[100dvh] w-full flex flex-col overflow-hidden">
-      {/* HEADER */}
-      <header className="bg-black w-full flex-shrink-0 z-20 pt-4 pb-2 relative">
+      {/* FIX 1: Header Padding
+         Changed to 'pt-24' on mobile. This creates a large safe zone at the top
+         so the Title renders BELOW the absolute "Back" button.
+      */}
+      <header className="bg-black w-full flex-shrink-0 z-20 pt-24 md:pt-4 pb-2 relative transition-all">
         <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 md:px-8">
           <div className="flex flex-col md:block relative">
-            {/* BACK BUTTON POSITIONS */}
-            {/* Mobile: Just sits in the flow */}
-
-            {/* TITLE CONTAINER */}
-            {/* Mobile: No padding. Desktop: Left padding to clear the button */}
             <div className="text-left pl-0 md:pl-[80px]">
-              <h1 className="text-3xl sm:text-4xl md:text-5xl font-[family-name:var(--font-brown-sugar)] text-white uppercase tracking-wide mb-0 leading-none line-clamp-2">
+              <h1 className="text-2xl sm:text-3xl md:text-5xl font-[family-name:var(--font-brown-sugar)] text-white uppercase tracking-wide mb-0 leading-tight line-clamp-2">
                 {projectTitle}
               </h1>
-              <p className="text-neutral-500 text-xs sm:text-sm font-sans uppercase tracking-widest mt-1">
+              <p className="text-neutral-500 text-[10px] sm:text-sm font-sans uppercase tracking-widest mt-1">
                 {projectYear}
               </p>
             </div>
@@ -136,7 +99,7 @@ export function BookFlip({
 
       {/* MAIN CONTENT */}
       <main className="flex-1 flex flex-col relative min-h-0 w-full">
-        <div className="w-full h-full flex items-center justify-center px-4 sm:px-6 md:px-8 py-2">
+        <div className="w-full h-full flex items-center justify-center px-2 sm:px-6 md:px-8 py-2">
           <div
             className="relative w-full h-full max-w-7xl flex items-center justify-center"
             onTouchStart={handleTouchStart}
@@ -144,12 +107,12 @@ export function BookFlip({
           >
             <HTMLFlipBook
               ref={bookRef}
-              width={800}
-              height={1000}
+              width={600}
+              height={800}
               size="stretch"
-              minWidth={300}
+              minWidth={280}
               maxWidth={2000}
-              minHeight={400}
+              minHeight={350}
               maxHeight={2000}
               maxShadowOpacity={0.5}
               showCover={false}
@@ -194,7 +157,7 @@ export function BookFlip({
       </main>
 
       {/* FOOTER */}
-      <footer className="bg-black border-t border-white/5 w-full flex-shrink-0 z-20 py-4 pb-6 safe-area-bottom">
+      <footer className="bg-black border-t border-white/5 w-full flex-shrink-0 z-20 py-4 pb-8 md:pb-6 safe-area-bottom">
         <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 md:px-8">
           {/* Progress bar */}
           <div className="mb-4 w-full">
@@ -208,8 +171,11 @@ export function BookFlip({
 
           {/* Controls */}
           <div>
-            {/* Mobile Controls */}
-            <div className="md:hidden flex items-center justify-between gap-4">
+            {/* FIX 2: Footer Spacing
+               Added 'pl-16' here. This pushes the "01 / 06" text to the right,
+               so it doesn't overlap with the 'N' logo in the bottom-left corner.
+            */}
+            <div className="md:hidden flex items-center justify-between gap-4 pl-16">
               <div className="text-left">
                 <span className="text-xl font-bold text-white leading-none">
                   {String(currentPage + 1).padStart(2, "0")}
