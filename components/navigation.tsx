@@ -16,7 +16,6 @@ export const Navigation: React.FC = () => {
   const pathname = usePathname();
 
   const handleContactClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    // If we are on the home page, scroll smoothly. Otherwise, let the Link handle the jump.
     if (pathname === "/") {
       e.preventDefault();
       const contactSection = document.getElementById("contact-section");
@@ -27,9 +26,8 @@ export const Navigation: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-wrap justify-center items-center gap-4 md:gap-8 px-4 z-50 relative">
+    <div className="flex flex-nowrap justify-center items-center gap-1 md:gap-8 px-1 z-50 relative w-full">
       {NAV_ITEMS.map((item) => {
-        // Highlight active if the pathname starts with the href (e.g. /cv)
         const isActive = item.id !== "contact" && pathname === item.href;
 
         return (
@@ -42,12 +40,15 @@ export const Navigation: React.FC = () => {
               relative overflow-hidden
               rounded-full 
               border-[2px] border-white 
-              px-6 py-2 md:px-10 md:py-3
               
-              /* FONT & TEXT */
+              /* SIZING: Tiny on mobile to fit 1 line, standard on desktop */
+              px-2 py-1 md:px-10 md:py-3
+              
+              /* FONT & TEXT: Tiny font on mobile */
               font-sans font-bold 
-              text-sm md:text-base
+              text-[10px] md:text-base
               uppercase tracking-widest
+              whitespace-nowrap
               
               /* ANIMATION */
               transition-all duration-200 ease-in-out
