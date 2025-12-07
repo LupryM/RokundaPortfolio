@@ -4,6 +4,7 @@ import type React from "react";
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link"; // Import Link for the back button
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import HTMLFlipBook from "react-pageflip";
 
 interface BookFlipProps {
   projectId: number;
@@ -51,9 +52,8 @@ export function BookFlip({
   projectYear,
   totalPages,
 }: BookFlipProps) {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [isFlipping, setIsFlipping] = useState(false);
-  const [flipDirection, setFlipDirection] = useState<"next" | "prev">("next");
+  const [currentPage, setCurrentPage] = useState(0);
+  const bookRef = useRef<any>(null);
   const touchStartX = useRef(0);
   const touchEndX = useRef(0);
 
@@ -70,7 +70,7 @@ export function BookFlip({
     const swipeThreshold = 50;
     const difference = touchStartX.current - touchEndX.current;
 
-    if (Math.abs(difference) > swipeThreshold && !isFlipping) {
+    if (Math.abs(difference) > swipeThreshold) {
       if (difference > 0) {
         handleNextPage();
       } else {
@@ -92,37 +92,23 @@ export function BookFlip({
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [currentPage, isFlipping]);
+  }, [currentPage]);
 
   const handleNextPage = () => {
-    if (currentPage < totalPages && !isFlipping) {
-      setFlipDirection("next");
-      setIsFlipping(true);
-      setTimeout(() => {
-        setCurrentPage((prev) => prev + 1);
-        setIsFlipping(false);
-      }, 800);
+    if (bookRef.current) {
+      bookRef.current.pageFlip().flipNext();
     }
   };
 
   const handlePrevPage = () => {
-    if (currentPage > 1 && !isFlipping) {
-      setFlipDirection("prev");
-      setIsFlipping(true);
-      setTimeout(() => {
-        setCurrentPage((prev) => prev - 1);
-        setIsFlipping(false);
-      }, 800);
+    if (bookRef.current) {
+      bookRef.current.pageFlip().flipPrev();
     }
   };
 
-  const currentImagePath = `/projects/project${projectId}/${String(
-    currentPage
-  ).padStart(2, "0")}.webp`;
-
-  const nextImagePath = `/projects/project${projectId}/${String(
-    flipDirection === "next" ? currentPage + 1 : currentPage - 1
-  ).padStart(2, "0")}.webp`;
+  const onFlip = (e: any) => {
+    setCurrentPage(e.data);
+  };
 
   return (
     // FIX: Use h-[100dvh] for mobile browsers to prevent address bar issues
@@ -135,9 +121,7 @@ export function BookFlip({
           <div className="flex flex-col md:block relative">
             {/* BACK BUTTON POSITIONS */}
             {/* Mobile: Just sits in the flow */}
-            <div className="md:absolute md:left-4 md:top-1/2 md:-translate-y-1/2 mb-4 md:mb-0">
-               <BackButton />
-            </div>
+        
 
             {/* TITLE CONTAINER */}
             {/* Mobile: No padding. Desktop: Left padding to clear the button */}
@@ -162,62 +146,51 @@ export function BookFlip({
             className="relative w-full h-full max-w-7xl flex items-center justify-center"
             onTouchStart={handleTouchStart}
             onTouchEnd={handleTouchEnd}
-            style={{ perspective: "2500px" }}
           >
-            {/* Next/Previous page underneath */}
-            <div className="absolute inset-0 flex items-center justify-center">
-              <img
-                src={isFlipping ? nextImagePath : currentImagePath}
-                alt={`${projectTitle} page`}
-                className="max-w-full max-h-full object-contain shadow-2xl"
-              />
-            </div>
-
-            {/* Current page that peels away */}
-            {isFlipping && (
-              <div
-                className="absolute inset-0 flex items-center justify-center"
-                style={{
-                  transformStyle: "preserve-3d",
-                  transformOrigin:
-                    flipDirection === "next" ? "right center" : "left center",
-                  animation:
-                    flipDirection === "next"
-                      ? "pagePeelNext 0.8s ease-in-out forwards"
-                      : "pagePeelPrev 0.8s ease-in-out forwards",
-                }}
-              >
-                <img
-                  src={currentImagePath}
-                  alt={`${projectTitle} page ${currentPage}`}
-                  className="max-w-full max-h-full object-contain shadow-2xl"
-                />
-              </div>
-            )}
-
-            <style jsx>{`
-              @keyframes pagePeelNext {
-                0% {
-                  transform: rotateY(0deg);
-                  opacity: 1;
-                }
-                100% {
-                  transform: rotateY(-180deg);
-                  opacity: 0;
-                }
-              }
-
-              @keyframes pagePeelPrev {
-                0% {
-                  transform: rotateY(0deg);
-                  opacity: 1;
-                }
-                100% {
-                  transform: rotateY(180deg);
-                  opacity: 0;
-                }
-              }
-            `}</style>
+            <HTMLFlipBook
+              ref={bookRef}
+              width={1200}
+              height={800}
+              size="stretch"
+              minWidth={300}
+              maxWidth={2000}
+              minHeight={400}
+              maxHeight={2000}
+              maxShadowOpacity={0.5}
+              showCover={false}
+              mobileScrollSupport={true}
+              onFlip={onFlip}
+              className="book-container"
+              style={{}}
+              startPage={0}
+              drawShadow={true}
+              flippingTime={800}
+              usePortrait={false}
+              startZIndex={0}
+              autoSize={true}
+              clickEventForward={true}
+              useMouseEvents={true}
+              swipeDistance={30}
+              showPageCorners={true}
+              disableFlipByClick={false}
+            >
+              {Array.from({ length: totalPages }, (_, i) => {
+                const pageNumber = i + 1;
+                const imagePath = `/projects/project${projectId}/${String(
+                  pageNumber
+                ).padStart(2, "0")}.webp`;
+                
+                return (
+                  <div key={i} className="page bg-black flex items-center justify-center w-full h-full">
+                    <img
+                      src={imagePath}
+                      alt={`${projectTitle} page ${pageNumber}`}
+                      className="max-w-full max-h-full object-contain"
+                    />
+                  </div>
+                );
+              })}
+            </HTMLFlipBook>
           </div>
         </div>
       </main>
@@ -230,7 +203,7 @@ export function BookFlip({
             <div className="w-full h-0.5 bg-neutral-900 rounded-full overflow-hidden">
               <div
                 className="h-full bg-white transition-all duration-300"
-                style={{ width: `${(currentPage / totalPages) * 100}%` }}
+                style={{ width: `${((currentPage + 1) / totalPages) * 100}%` }}
               />
             </div>
           </div>
@@ -241,7 +214,7 @@ export function BookFlip({
             <div className="md:hidden flex items-center justify-between gap-4">
               <div className="text-left">
                 <span className="text-xl font-bold text-white leading-none">
-                  {String(currentPage).padStart(2, "0")}
+                  {String(currentPage + 1).padStart(2, "0")}
                 </span>
                 <span className="text-neutral-600 text-[10px] font-sans uppercase tracking-widest ml-2">
                   / {String(totalPages).padStart(2, "0")}
@@ -251,14 +224,14 @@ export function BookFlip({
               <div className="flex gap-4">
                 <button
                   onClick={handlePrevPage}
-                  disabled={currentPage === 1 || isFlipping}
+                  disabled={currentPage === 0}
                   className="w-10 h-10 flex items-center justify-center text-white border border-white/20 rounded-full hover:bg-white hover:text-black transition-all disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-white"
                 >
                   <ChevronLeft size={20} />
                 </button>
                 <button
                   onClick={handleNextPage}
-                  disabled={currentPage === totalPages || isFlipping}
+                  disabled={currentPage >= totalPages - 1}
                   className="w-10 h-10 flex items-center justify-center text-white border border-white/20 rounded-full hover:bg-white hover:text-black transition-all disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-white"
                 >
                   <ChevronRight size={20} />
@@ -269,7 +242,7 @@ export function BookFlip({
             {/* Desktop Info */}
             <div className="hidden md:flex items-center justify-between text-xs">
               <p className="text-neutral-600 font-sans uppercase tracking-widest">
-                {String(currentPage).padStart(2, "0")} /{" "}
+                {String(currentPage + 1).padStart(2, "0")} /{" "}
                 {String(totalPages).padStart(2, "0")}
               </p>
               <p className="text-neutral-700 font-sans text-[10px] uppercase tracking-widest">
