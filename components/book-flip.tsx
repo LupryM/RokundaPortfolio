@@ -2,7 +2,7 @@
 
 import type React from "react";
 import { useState, useRef, useEffect } from "react";
-import Link from "next/link"; // Import Link for the back button
+import Link from "next/link";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import HTMLFlipBook from "react-pageflip";
 
@@ -92,7 +92,7 @@ export function BookFlip({
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [currentPage]);
+  }, []);
 
   const handleNextPage = () => {
     if (bookRef.current) {
@@ -113,15 +113,12 @@ export function BookFlip({
   return (
     // FIX: Use h-[100dvh] for mobile browsers to prevent address bar issues
     <div className="bg-black h-[100dvh] w-full flex flex-col overflow-hidden">
-      
       {/* HEADER */}
       <header className="bg-black w-full flex-shrink-0 z-20 pt-4 pb-2 relative">
         <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 md:px-8">
-          
           <div className="flex flex-col md:block relative">
             {/* BACK BUTTON POSITIONS */}
             {/* Mobile: Just sits in the flow */}
-        
 
             {/* TITLE CONTAINER */}
             {/* Mobile: No padding. Desktop: Left padding to clear the button */}
@@ -134,12 +131,10 @@ export function BookFlip({
               </p>
             </div>
           </div>
-
         </div>
       </header>
 
       {/* MAIN CONTENT */}
-      {/* FIX: min-h-0 ensures this container shrinks if needed, preventing page scroll */}
       <main className="flex-1 flex flex-col relative min-h-0 w-full">
         <div className="w-full h-full flex items-center justify-center px-4 sm:px-6 md:px-8 py-2">
           <div
@@ -149,8 +144,8 @@ export function BookFlip({
           >
             <HTMLFlipBook
               ref={bookRef}
-              width={1200}
-              height={800}
+              width={800}
+              height={1000}
               size="stretch"
               minWidth={300}
               maxWidth={2000}
@@ -165,7 +160,7 @@ export function BookFlip({
               startPage={0}
               drawShadow={true}
               flippingTime={800}
-              usePortrait={false}
+              usePortrait={true}
               startZIndex={0}
               autoSize={true}
               clickEventForward={true}
@@ -179,13 +174,16 @@ export function BookFlip({
                 const imagePath = `/projects/project${projectId}/${String(
                   pageNumber
                 ).padStart(2, "0")}.webp`;
-                
+
                 return (
-                  <div key={i} className="page bg-black flex items-center justify-center w-full h-full">
+                  <div
+                    key={i}
+                    className="page bg-black flex items-center justify-center w-full h-full"
+                  >
                     <img
                       src={imagePath}
                       alt={`${projectTitle} page ${pageNumber}`}
-                      className="max-w-full max-h-full object-contain"
+                      className="w-full h-full object-contain"
                     />
                   </div>
                 );
