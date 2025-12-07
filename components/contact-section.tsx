@@ -40,9 +40,12 @@ export const ContactSection = () => {
             <h3 className="text-white font-sans font-bold uppercase tracking-widest mb-2 text-sm">
               Phone
             </h3>
-            <p className="text-2xl text-neutral-300 font-[family-name:var(--font-brown-sugar)]">
+            <a // Changed from <p> to <a>
+              href="tel:+27676228952" // Added tel: link (assuming +27 is the country code for South Africa based on the number format)
+              className="text-2xl text-neutral-300 hover:text-white transition-colors font-[family-name:var(--font-brown-sugar)]"
+            >
               067 622 8952
-            </p>
+            </a>
           </div>
 
           <div>
