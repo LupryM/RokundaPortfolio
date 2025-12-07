@@ -7,7 +7,7 @@ import { usePathname } from "next/navigation";
 const NAV_ITEMS = [
   { label: "ABOUT", id: "about", href: "/about" },
   { label: "CV", id: "cv", href: "/cv" },
-  { label: "TECHNICAL SKILLS", id: "skills", href: "/technical-skills" },
+  { label: "PROFICIENCY", id: "skills", href: "/technical-skills" },
   { label: "INFLUENCES", id: "influences", href: "/influences" },
   { label: "CONTACT", id: "contact", href: "/#contact-section" },
 ] as const;
@@ -45,9 +45,9 @@ export const Navigation: React.FC = () => {
               rounded-full 
               border-[2px] border-white 
               
-              /* SIZING: Fixed height ensures alignment, px defines width */
-              h-7 md:h-12
-              px-2 md:px-10
+              /* SIZING: INCREASED HEIGHT AND PADDING HERE */
+              h-9 md:h-16
+              px-3 md:px-12
               
               /* FONT */
               font-sans font-bold 
@@ -55,8 +55,8 @@ export const Navigation: React.FC = () => {
               whitespace-nowrap
               text-center
 
-              /* CONDITIONAL FONT SIZE: Smaller for Skills, normal for others */
-              ${isSkills ? "text-[8px] md:text-sm" : "text-[10px] md:text-base"}
+              /* CONDITIONAL FONT SIZE: INCREASED TEXT SIZES */
+              ${isSkills ? "text-[10px] md:text-base" : "text-xs md:text-xl"}
               
               /* ANIMATION */
               transition-all duration-200 ease-in-out
