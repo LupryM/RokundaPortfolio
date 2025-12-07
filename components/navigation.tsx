@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const NAV_ITEMS = [
-  { label: "ABOUT ME", id: "about", href: "/about" },
+  { label: "ABOUT", id: "about", href: "/about" },
   { label: "CV", id: "cv", href: "/cv" },
   { label: "TECHNICAL SKILLS", id: "skills", href: "/technical-skills" },
   { label: "INFLUENCES", id: "influences", href: "/influences" },
@@ -36,24 +36,28 @@ export const Navigation: React.FC = () => {
             href={item.href}
             onClick={item.id === "contact" ? handleContactClick : undefined}
             className={`
-              /* SHAPE: Rounded Pill */
+              /* LAYOUT: Width depends on text, centered content */
+              w-auto flex items-center justify-center
+              
+              /* SHAPE */
               relative overflow-hidden
               rounded-full 
               border-[2px] border-white 
               
-              /* SIZING: Tiny on mobile to fit 1 line, standard on desktop */
+              /* SIZING: Padding defines the extra width around text */
               px-2 py-1 md:px-10 md:py-3
               
-              /* FONT & TEXT: Tiny font on mobile */
+              /* FONT */
               font-sans font-bold 
               text-[10px] md:text-base
               uppercase tracking-widest
               whitespace-nowrap
+              text-center
               
               /* ANIMATION */
               transition-all duration-200 ease-in-out
               
-              /* COLOR LOGIC */
+              /* COLOR */
               ${
                 isActive
                   ? "bg-white text-black"
