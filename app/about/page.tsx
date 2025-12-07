@@ -10,10 +10,12 @@ export default function AboutPage() {
         <Navigation />
       </div>
 
-      {/* CHANGED: max-w-7xl -> max-w-6xl (A bit smaller) */}
-      <div className="flex-grow px-4 md:px-8 max-w-6xl mx-auto py-12 w-full text-center">
+      {/* CHANGED: Removed 'px-4' from here so the image can touch the edges on mobile. 
+          Kept 'md:px-8' for desktop spacing. */}
+      <div className="flex-grow md:px-8 max-w-6xl mx-auto py-12 w-full text-center">
         {/* BACK BUTTON */}
-        <div className="mb-12 flex justify-center">
+        {/* Added 'px-4' here so the button doesn't touch the screen edge on mobile */}
+        <div className="mb-12 flex justify-center px-4 md:px-0">
           <Link
             href="/"
             className="border border-white text-white px-8 py-3 rounded-full uppercase tracking-widest text-sm font-bold hover:bg-white hover:text-black transition-colors"
@@ -23,6 +25,7 @@ export default function AboutPage() {
         </div>
 
         {/* ABOUT IMAGE CONTAINER */}
+        {/* No padding here, so it stretches full width on mobile */}
         <div className="w-full flex justify-center">
           <img
             src="/about.webp"
