@@ -83,10 +83,9 @@ function HomeContent() {
     <div className="bg-black min-h-screen flex flex-col">
       {/* HEADER - Only show in List View */}
       {viewMode === "list" && <Header />}
-
       {/* NAVIGATION - Only show in List View */}
       {viewMode === "list" && (
-        <div className="pb-8 sticky top-0 z-40 bg-black/90 backdrop-blur-sm pt-4">
+        <div className="pb-8 sticky top-1 z-40 bg-black/90 backdrop-blur-sm pt-0 -mt-10 md:mt-0 md:pt-4">
           <Navigation />
         </div>
       )}
@@ -99,7 +98,7 @@ function HomeContent() {
             {/* PROJECTS BANNER */}
             <div className="h-px bg-white w-full"></div>
             <div className="py-4 md:py-6 flex justify-center bg-black">
-              <h2 className="font-[family-name:var(--font-brown-sugar)] text-5xl md:text-7xl text-white tracking-wide uppercase">
+              <h2 className="font-[family-name:var(--font-brown-sugar)] text-4xl md:text-6xl text-white tracking-wide uppercase">
                 PROJECTS
               </h2>
             </div>

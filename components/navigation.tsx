@@ -29,6 +29,7 @@ export const Navigation: React.FC = () => {
     <div className="flex flex-nowrap justify-center items-center gap-1 md:gap-8 px-1 z-50 relative w-full">
       {NAV_ITEMS.map((item) => {
         const isActive = item.id !== "contact" && pathname === item.href;
+        const isSkills = item.id === "skills";
 
         return (
           <Link
@@ -49,10 +50,16 @@ export const Navigation: React.FC = () => {
               
               /* FONT */
               font-sans font-bold 
-              text-[10px] md:text-base
               uppercase tracking-widest
               whitespace-nowrap
               text-center
+
+              /* CONDITIONAL FONT SIZE: Smaller for Skills, normal for others */
+              ${
+                isSkills 
+                  ? "text-[8px] md:text-sm" 
+                  : "text-[10px] md:text-base"
+              }
               
               /* ANIMATION */
               transition-all duration-200 ease-in-out
