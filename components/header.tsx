@@ -21,7 +21,7 @@ export const Header: React.FC = () => {
           {/* MAP CONTAINER */}
           <div className="relative w-72 h-72 md:w-96 md:h-96 lg:w-[35rem] lg:h-[35rem] -mt-9 -ml-16 md:-ml-24 lg:-ml-48 z-10 flex-shrink-0">
             <img
-              src="/Map.png"
+              src="/map.png"
               alt="South Africa Map"
               className="w-full h-full object-contain pointer-events-none"
             />
