@@ -10,7 +10,8 @@ export default function AboutPage() {
         <Navigation />
       </div>
 
-      <div className="flex-grow px-4 md:px-8 max-w-5xl mx-auto py-12 w-full text-center">
+      {/* CHANGED: max-w-7xl -> max-w-6xl (A bit smaller) */}
+      <div className="flex-grow px-4 md:px-8 max-w-6xl mx-auto py-12 w-full text-center">
         {/* BACK BUTTON */}
         <div className="mb-12 flex justify-center">
           <Link
@@ -23,11 +24,10 @@ export default function AboutPage() {
 
         {/* ABOUT IMAGE CONTAINER */}
         <div className="w-full flex justify-center">
-          {/* Make sure to put your file in: public/images/about.webp */}
           <img
             src="/about.webp"
             alt="About Rokunda Mboyi"
-            className="w-full max-w-4xl h-auto border border-white/20 shadow-[0_0_30px_rgba(255,255,255,0.1)]"
+            className="w-full h-auto"
           />
         </div>
       </div>
