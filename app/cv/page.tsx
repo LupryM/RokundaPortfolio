@@ -42,7 +42,7 @@ export default function CVPage() {
           <img
             src="/cvlight.webp"
             alt="Rokunda Mboyi CV"
-            className="w-full h-auto filter greyscale invert"
+            className="w-full h-auto"
           />
         </div>
       </div>
