@@ -1,7 +1,13 @@
+"use client";
+
 import React from "react";
 
 export const ContactSection = () => {
   const FORM_ACTION_URL = "https://formsubmit.co/rokundamabila@gmail.com";
+
+  const handleScrollTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   return (
     <div className="w-full max-w-4xl mx-auto py-12 md:py-20 px-4">
@@ -115,6 +121,33 @@ export const ContactSection = () => {
             Send Message
           </button>
         </form>
+      </div>
+
+      {/* 4. SCROLL TO TOP BUTTON (Added Here) */}
+      <div className="w-full flex justify-center mt-24">
+        <button
+          onClick={handleScrollTop}
+          className="group flex flex-col items-center gap-4 text-white hover:text-white/80 transition-colors"
+        >
+          {/* Simple Up Arrow */}
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            className="w-8 h-8 md:w-10 md:h-10 transition-transform duration-500 ease-in-out group-hover:-translate-y-2"
+          >
+            <path d="M12 21L12 3" />
+            <path d="M5 10L12 3L19 10" />
+          </svg>
+
+          {/* Text Label */}
+          <span className="font-sans font-bold uppercase tracking-[0.2em] text-xs md:text-sm text-neutral-400 group-hover:text-white transition-colors">
+            Back to Projects
+          </span>
+        </button>
       </div>
     </div>
   );

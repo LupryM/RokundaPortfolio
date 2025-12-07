@@ -1,11 +1,11 @@
 import Link from "next/link";
-import { Header } from "@/components/header";
 import { Navigation } from "@/components/navigation";
+import { BackButton } from "@/components/back-button";
+
 
 export default function CVPage() {
   return (
     <div className="bg-black min-h-screen flex flex-col">
-      <Header />
       <div className="pb-8 sticky top-0 z-40 bg-black/90 backdrop-blur-sm pt-4">
         <Navigation />
       </div>

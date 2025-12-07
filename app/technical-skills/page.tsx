@@ -1,6 +1,7 @@
 import Link from "next/link";
-import { Header } from "@/components/header";
 import { Navigation } from "@/components/navigation";
+import { BackButton } from "@/components/back-button";
+
 
 // 1. DATA
 const OTHER_SKILLS = [
@@ -59,7 +60,7 @@ function BlockIcon({ className }: { className?: string }) {
 export default function SkillsPage() {
   return (
     <div className="bg-black min-h-screen flex flex-col text-white">
-      <Header />
+     
       <div className="pb-8 sticky top-0 z-40 bg-black/90 backdrop-blur-sm pt-4">
         <Navigation />
       </div>
@@ -69,7 +70,7 @@ export default function SkillsPage() {
         <div className="mb-12 flex justify-center">
           <Link
             href="/"
-            className="text-white/70 px-8 py-3 rounded-full uppercase tracking-widest text-sm font-bold hover:text-white hover:bg-white/10 transition-colors"
+            className=" text-white px-8 py-3 rounded-full uppercase tracking-widest text-sm font-bold hover:text-white hover:bg-white/10 transition-colors"
           >
             ← Back to Projects
           </Link>
@@ -90,7 +91,7 @@ export default function SkillsPage() {
             <div className="flex flex-col items-center group">
               <div className="w-full aspect-[4/3] bg-neutral-900 border border-neutral-800 p-2 transition-colors group-hover:border-white/50">
                 <img
-                  src="/cert-revit.jpg"
+                  src="/revit.webp"
                   alt="Revit 2025"
                   className="w-full h-full object-contain opacity-80 group-hover:opacity-100 transition-opacity"
                 />
@@ -103,7 +104,7 @@ export default function SkillsPage() {
             <div className="flex flex-col items-center group">
               <div className="w-full aspect-[4/3] bg-neutral-900 border border-neutral-800 p-2 transition-colors group-hover:border-white/50">
                 <img
-                  src="/cert-autocad.jpg"
+                  src="/auto.webp"
                   alt="AutoCAD 2023"
                   className="w-full h-full object-contain opacity-80 group-hover:opacity-100 transition-opacity"
                 />
