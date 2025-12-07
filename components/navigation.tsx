@@ -45,8 +45,9 @@ export const Navigation: React.FC = () => {
               rounded-full 
               border-[2px] border-white 
               
-              /* SIZING: Padding defines the extra width around text */
-              px-2 py-1 md:px-10 md:py-3
+              /* SIZING: Fixed height ensures alignment, px defines width */
+              h-7 md:h-12
+              px-2 md:px-10
               
               /* FONT */
               font-sans font-bold 
@@ -55,11 +56,7 @@ export const Navigation: React.FC = () => {
               text-center
 
               /* CONDITIONAL FONT SIZE: Smaller for Skills, normal for others */
-              ${
-                isSkills 
-                  ? "text-[8px] md:text-sm" 
-                  : "text-[10px] md:text-base"
-              }
+              ${isSkills ? "text-[8px] md:text-sm" : "text-[10px] md:text-base"}
               
               /* ANIMATION */
               transition-all duration-200 ease-in-out

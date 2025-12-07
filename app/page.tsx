@@ -102,7 +102,7 @@ function HomeContent() {
                 PROJECTS
               </h2>
             </div>
-            <div className="h-px bg-white w-full mb-16"></div>
+            <div className="h-px bg-white w-full mb-8"></div>
 
             {/* PROJECTS GRID */}
             <div className="px-4 md:px-8 max-w-5xl mx-auto pb-20">
