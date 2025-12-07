@@ -85,7 +85,7 @@ function HomeContent() {
       {viewMode === "list" && <Header />}
       {/* NAVIGATION - Only show in List View */}
       {viewMode === "list" && (
-        <div className="pb-8 sticky top-1 z-40 bg-black/90 backdrop-blur-sm pt-0 -mt-10 md:mt-0 md:pt-4">
+        <div className="pb-3 sticky top-0 z-40 bg-black pt-0 -mt-10 md:mt-0 md:pt-4">
           <Navigation />
         </div>
       )}
