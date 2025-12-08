@@ -44,7 +44,7 @@ export const ContactSection = () => {
               href="tel:+27676228952" // Added tel: link (assuming +27 is the country code for South Africa based on the number format)
               className="text-2xl text-neutral-300 hover:text-white transition-colors font-[family-name:var(--font-brown-sugar)]"
             >
-              067 622 8952
+              +27 67 622 8952
             </a>
           </div>
 
