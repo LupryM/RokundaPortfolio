@@ -27,7 +27,7 @@ export default function AboutPage() {
         {/* No padding here, so it stretches full width on mobile */}
         <div className="w-full flex justify-center">
           <img
-            src="/about.jpg"
+            src="/about.webp"
             alt="About Rokunda Mboyi"
             className="w-full h-auto"
           />
